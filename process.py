@@ -15,10 +15,11 @@ paragraphs = [1]+[i for i,v in enumerate(text) if v[-1] == '\n']                
 percent_of_prev_fifty = [                                                       # calculate statistics:
         text[max(i-ROLLING_DISTANCE, 0):i].count('siriak')  # num of previous ROLLING_DISTANCE words that are 'siriak'
         /ROLLING_DISTANCE *100 for i in range(len(text))]   # converted to percent, for every word index
+plt.style.use('dark_background')                                                # dark mode
 plt.plot(percent_of_prev_fifty)                                                 # plot rolling average
 plt.ylabel(f'Percentage of "Siriak" in previous {ROLLING_DISTANCE} words')      # set axis labels
 plt.xlabel('Paragraph number')
-plt.xticks(paragraphs, range(1, len(paragraphs)+1))
-# plt.xticks(range(len(text)), text)                                            # show words (too laggy)
+plt.xticks(paragraphs, range(1, len(paragraphs)+1))                             # show paragraph markers
+plt.savefig('chart', dpi=300)                                                   # save as image
 plt.show()                                                                      # show the plot
 
