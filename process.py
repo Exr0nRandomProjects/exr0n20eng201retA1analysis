@@ -16,11 +16,12 @@ percent_of_prev_fifty = [                                                       
         len(list(filter(lambda w: w in ['siriak', 'he', 'his', 'him'],          # count number of "valid" words
         text[max(i-ROLLING_RADIUS, 0):min(i+ROLLING_RADIUS, len(text))])))      # of the surrounding 2*ROLLING_RADIUS words
         /ROLLING_RADIUS *50 for i in range(len(text))]                          # converted to percent, for every word index
-plt.style.use('dark_background')                                                # dark mode
+# plt.style.use('dark_background')                                                # dark mode
+plt.figure(figsize=(12, 5))                                                     # use wider dimensions ratio
 plt.plot(percent_of_prev_fifty)                                                 # plot rolling average
 plt.ylabel(f'Percentage of nearby {ROLLING_RADIUS*2} words referencing Siriak') # set axis labels
 plt.xlabel('Paragraph number')
 plt.xticks(paragraphs, range(1, len(paragraphs)+1))                             # show paragraph markers
-plt.savefig('chart', dpi=300)                                                   # save as image
+plt.savefig('chart', dpi=300, bbox_inches='tight')                              # save as image
 plt.show()                                                                      # show the plot
 
