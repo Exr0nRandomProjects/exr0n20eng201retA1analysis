@@ -1,4 +1,4 @@
-ROLLING_DISTANCE = 100
+ROLLING_DISTANCE = 75
 
 from matplotlib import pyplot as plt
 from re import sub
@@ -13,11 +13,12 @@ text = text.split(' ')                                                          
 text = list(filter(lambda w: len(w), text))                                     # remove empty "words"
 paragraphs = [1]+[i for i,v in enumerate(text) if v[-1] == '\n']                # get paragraph indices by word number
 percent_of_prev_fifty = [                                                       # calculate statistics:
-        text[max(i-ROLLING_DISTANCE, 0):i].count('siriak')  # num of previous ROLLING_DISTANCE words that are 'siriak'
-        /ROLLING_DISTANCE *100 for i in range(len(text))]   # converted to percent, for every word index
+        len(list(filter(lambda w: w in ['siriak', 'he', 'his'],                 # count number of "valid" words
+        text[max(i-ROLLING_DISTANCE, 0):i])))                                   # of the previous ROLLING_DISTANCE words
+        /ROLLING_DISTANCE *100 for i in range(len(text))]                       # converted to percent, for every word index
 plt.style.use('dark_background')                                                # dark mode
 plt.plot(percent_of_prev_fifty)                                                 # plot rolling average
-plt.ylabel(f'Percentage of "Siriak" in previous {ROLLING_DISTANCE} words')      # set axis labels
+plt.ylabel(f'References to Siriak in previous {ROLLING_DISTANCE} words')        # set axis labels
 plt.xlabel('Paragraph number')
 plt.xticks(paragraphs, range(1, len(paragraphs)+1))                             # show paragraph markers
 plt.savefig('chart', dpi=300)                                                   # save as image
