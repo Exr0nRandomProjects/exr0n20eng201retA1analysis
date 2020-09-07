@@ -18,7 +18,7 @@ percent_of_prev_fifty = [                                                       
         /ROLLING_RADIUS *50 for i in range(len(text))]                          # converted to percent, for every word index
 plt.style.use('dark_background')                                                # dark mode
 plt.plot(percent_of_prev_fifty)                                                 # plot rolling average
-plt.ylabel(f'References to Siriak in nearby {ROLLING_RADIUS*2} words')          # set axis labels
+plt.ylabel(f'Percentage of nearby {ROLLING_RADIUS*2} words referencing Siriak') # set axis labels
 plt.xlabel('Paragraph number')
 plt.xticks(paragraphs, range(1, len(paragraphs)+1))                             # show paragraph markers
 plt.savefig('chart', dpi=300)                                                   # save as image
